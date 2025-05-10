@@ -1,0 +1,1271 @@
+UseCaseModel AIPanoramicCampus {
+
+	UC::managePanoramicImageCollectors
+	UC::manageLaboratoryAdministrators
+	UC::manageAIModelAdministrators
+	UC::manageWebsiteMaintainers
+	UC::acceptPanoramicImageCollectionRequests definedBySSD(AcceptPanoramicImageCollectionRequestsSSD) relatedService(AcceptPanoramicImageCollectionRequestsService)
+	UC::uploadPanoramicImages definedBySSD(UploadPanoramicImagesSSD) relatedService(UploadPanoramicImagesService)
+	UC::publishPanoramicImageCollectionRequests definedBySSD(PublishPanoramicImageCollectionRequestsSSD) relatedService(PublishPanoramicImageCollectionRequestsService)
+	UC::managePanoramicTriggerLocations definedBySSD(ManagePanoramicTriggerLocationsSSD) relatedService(ManagePanoramicTriggerLocationsService)
+	UC::managePanoramicImages
+	UC::manageLaboratoryIntroductions
+	UC::manageDeployedLLMs
+	UC::manageRAGDatabases
+	UC::manageTTSModels
+	UC::manageSTTModels
+	UC::reviewPanoramicTriggerLocations definedBySSD(ReviewPanoramicTriggerLocationsSSD) relatedService(ReviewPanoramicTriggerLocationsService)
+	UC::openWebsiteView definedBySSD(OpenWebsiteViewSSD) relatedService(OpenWebsiteViewService)
+	UC::openVRView
+	UC::selectPanoramicTriggerLocationsAndView definedBySSD(SelectPanoramicTriggerLocationsAndViewSSD) relatedService(SelectPanoramicTriggerLocationsAndViewService)
+	UC::interactAI include sendMessage, getResponse
+	UC::interactAIwithSpeech extend interactAI
+	UC::sendMessage
+	UC::getResponse
+
+	Actor Administrator {
+		managePanoramicImageCollectors
+		manageLaboratoryAdministrators
+		manageAIModelAdministrators
+		manageWebsiteMaintainers
+	}
+
+	Actor PanoramicImageCollector {
+		acceptPanoramicImageCollectionRequests
+		uploadPanoramicImages
+	}
+
+	Actor LaboratoryAdministrator {
+		publishPanoramicImageCollectionRequests
+		managePanoramicTriggerLocations
+		managePanoramicImages
+		manageLaboratoryIntroductions
+	}
+
+	Actor AIModelAdministrator {
+		manageDeployedLLMs
+		manageRAGDatabases
+		manageTTSModels
+		manageSTTModels
+	}
+
+	Actor WebsiteMaintainer {
+		reviewPanoramicTriggerLocations
+	}
+
+	Actor User {
+		openWebsiteView
+		openVRView
+		selectPanoramicTriggerLocationsAndView
+		interactAI
+	}
+
+	Interaction PublishPanoramicImageCollectionRequestsSSD {
+
+		[Participants: LaboratoryAdministrator PublishPanoramicImageCollectionRequestsService]
+
+		CallMessage::PublishPanoramicImageCollectionRequestsSSDCallMessage1(createNewRequest PublishPanoramicImageCollectionRequestsSSDCallMessage1SendingEnd -> PublishPanoramicImageCollectionRequestsSSDExecution1StartEnd)
+		ReturnMessage::PublishPanoramicImageCollectionRequestsSSDCallMessage1Return(PublishPanoramicImageCollectionRequestsSSDExecution1FinishEnd -> PublishPanoramicImageCollectionRequestsSSDCallMessage1ReturnReceivingEnd PublishPanoramicImageCollectionRequestsSSDCallMessage1)
+
+		Execution::PublishPanoramicImageCollectionRequestsSSDExecution1(PublishPanoramicImageCollectionRequestsService PublishPanoramicImageCollectionRequestsSSDExecution1StartEnd PublishPanoramicImageCollectionRequestsSSDExecution1FinishEnd)
+
+		MessageEnd::PublishPanoramicImageCollectionRequestsSSDCallMessage1SendingEnd(LaboratoryAdministrator PublishPanoramicImageCollectionRequestsSSDCallMessage1)
+		ExecutionEnd::PublishPanoramicImageCollectionRequestsSSDExecution1StartEnd(PublishPanoramicImageCollectionRequestsService PublishPanoramicImageCollectionRequestsSSDExecution1)
+		ExecutionEnd::PublishPanoramicImageCollectionRequestsSSDExecution1FinishEnd(PublishPanoramicImageCollectionRequestsService PublishPanoramicImageCollectionRequestsSSDExecution1)
+		MessageEnd::PublishPanoramicImageCollectionRequestsSSDCallMessage1ReturnReceivingEnd(LaboratoryAdministrator PublishPanoramicImageCollectionRequestsSSDCallMessage1Return)
+
+	}
+
+	Interaction AcceptPanoramicImageCollectionRequestsSSD {
+
+		[Participants: PanoramicImageCollector AcceptPanoramicImageCollectionRequestsService]
+
+		CallMessage::AcceptPanoramicImageCollectionRequestsSSDCallMessage1(getPanImageColRequest AcceptPanoramicImageCollectionRequestsSSDCallMessage1SendingEnd -> AcceptPanoramicImageCollectionRequestsSSDExecution1StartEnd)
+		ReturnMessage::AcceptPanoramicImageCollectionRequestsSSDCallMessage1Return(AcceptPanoramicImageCollectionRequestsSSDExecution1FinishEnd -> AcceptPanoramicImageCollectionRequestsSSDCallMessage1ReturnReceivingEnd AcceptPanoramicImageCollectionRequestsSSDCallMessage1)
+
+		Execution::AcceptPanoramicImageCollectionRequestsSSDExecution1(AcceptPanoramicImageCollectionRequestsService AcceptPanoramicImageCollectionRequestsSSDExecution1StartEnd AcceptPanoramicImageCollectionRequestsSSDExecution1FinishEnd)
+
+		MessageEnd::AcceptPanoramicImageCollectionRequestsSSDCallMessage1SendingEnd(PanoramicImageCollector AcceptPanoramicImageCollectionRequestsSSDCallMessage1)
+		ExecutionEnd::AcceptPanoramicImageCollectionRequestsSSDExecution1StartEnd(AcceptPanoramicImageCollectionRequestsService AcceptPanoramicImageCollectionRequestsSSDExecution1)
+		ExecutionEnd::AcceptPanoramicImageCollectionRequestsSSDExecution1FinishEnd(AcceptPanoramicImageCollectionRequestsService AcceptPanoramicImageCollectionRequestsSSDExecution1)
+		MessageEnd::AcceptPanoramicImageCollectionRequestsSSDCallMessage1ReturnReceivingEnd(PanoramicImageCollector AcceptPanoramicImageCollectionRequestsSSDCallMessage1Return)
+
+	}
+
+	Interaction UploadPanoramicImagesSSD {
+
+		[Participants: PanoramicImageCollector UploadPanoramicImagesService]
+
+		CallMessage::UploadPanoramicImagesSSDCallMessage1(uploadPanImage UploadPanoramicImagesSSDCallMessage1SendingEnd -> UploadPanoramicImagesSSDExecution1StartEnd)
+		ReturnMessage::UploadPanoramicImagesSSDCallMessage1Return(UploadPanoramicImagesSSDExecution1FinishEnd -> UploadPanoramicImagesSSDCallMessage1ReturnReceivingEnd UploadPanoramicImagesSSDCallMessage1)
+
+		Execution::UploadPanoramicImagesSSDExecution1(UploadPanoramicImagesService UploadPanoramicImagesSSDExecution1StartEnd UploadPanoramicImagesSSDExecution1FinishEnd)
+
+		MessageEnd::UploadPanoramicImagesSSDCallMessage1SendingEnd(PanoramicImageCollector UploadPanoramicImagesSSDCallMessage1)
+		ExecutionEnd::UploadPanoramicImagesSSDExecution1StartEnd(UploadPanoramicImagesService UploadPanoramicImagesSSDExecution1)
+		ExecutionEnd::UploadPanoramicImagesSSDExecution1FinishEnd(UploadPanoramicImagesService UploadPanoramicImagesSSDExecution1)
+		MessageEnd::UploadPanoramicImagesSSDCallMessage1ReturnReceivingEnd(PanoramicImageCollector UploadPanoramicImagesSSDCallMessage1Return)
+
+	}
+
+	Interaction ManagePanoramicTriggerLocationsSSD {
+
+		[Participants: LaboratoryAdministrator ManagePanoramicTriggerLocationsService]
+
+		CallMessage::ManagePanoramicTriggerLocationsSSDCallMessage1(createPanTriggerLocation ManagePanoramicTriggerLocationsSSDCallMessage1SendingEnd -> ManagePanoramicTriggerLocationsSSDExecution1StartEnd)
+		ReturnMessage::ManagePanoramicTriggerLocationsSSDCallMessage1Return(ManagePanoramicTriggerLocationsSSDExecution1FinishEnd -> ManagePanoramicTriggerLocationsSSDCallMessage1ReturnReceivingEnd ManagePanoramicTriggerLocationsSSDCallMessage1)
+		CallMessage::ManagePanoramicTriggerLocationsSSDCallMessage3(setLocationImage ManagePanoramicTriggerLocationsSSDCallMessage3SendingEnd -> ManagePanoramicTriggerLocationsSSDExecution2StartEnd)
+		ReturnMessage::ManagePanoramicTriggerLocationsSSDCallMessage3Return(ManagePanoramicTriggerLocationsSSDExecution2FinishEnd -> ManagePanoramicTriggerLocationsSSDCallMessage3ReturnReceivingEnd ManagePanoramicTriggerLocationsSSDCallMessage3)
+		CallMessage::ManagePanoramicTriggerLocationsSSDCallMessage5(setIntorduction ManagePanoramicTriggerLocationsSSDCallMessage5SendingEnd -> ManagePanoramicTriggerLocationsSSDExecution3StartEnd)
+		ReturnMessage::ManagePanoramicTriggerLocationsSSDCallMessage5Return(ManagePanoramicTriggerLocationsSSDExecution3FinishEnd -> ManagePanoramicTriggerLocationsSSDCallMessage5ReturnReceivingEnd ManagePanoramicTriggerLocationsSSDCallMessage5)
+		CallMessage::ManagePanoramicTriggerLocationsSSDCallMessage7(pubilshReview ManagePanoramicTriggerLocationsSSDCallMessage7SendingEnd -> ManagePanoramicTriggerLocationsSSDExecution4StartEnd)
+		ReturnMessage::ManagePanoramicTriggerLocationsSSDCallMessage7Return(ManagePanoramicTriggerLocationsSSDExecution4FinishEnd -> ManagePanoramicTriggerLocationsSSDCallMessage7ReturnReceivingEnd ManagePanoramicTriggerLocationsSSDCallMessage7)
+
+		Execution::ManagePanoramicTriggerLocationsSSDExecution1(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution1StartEnd ManagePanoramicTriggerLocationsSSDExecution1FinishEnd)
+		Execution::ManagePanoramicTriggerLocationsSSDExecution2(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution2StartEnd ManagePanoramicTriggerLocationsSSDExecution2FinishEnd)
+		Execution::ManagePanoramicTriggerLocationsSSDExecution3(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution3StartEnd ManagePanoramicTriggerLocationsSSDExecution3FinishEnd)
+		Execution::ManagePanoramicTriggerLocationsSSDExecution4(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution4StartEnd ManagePanoramicTriggerLocationsSSDExecution4FinishEnd)
+
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage1SendingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage1)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution1StartEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution1)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution1FinishEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution1)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage1ReturnReceivingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage1Return)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage3SendingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage3)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution2StartEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution2)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution2FinishEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution2)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage3ReturnReceivingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage3Return)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage5SendingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage5)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution3StartEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution3)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution3FinishEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution3)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage5ReturnReceivingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage5Return)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage7SendingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage7)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution4StartEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution4)
+		ExecutionEnd::ManagePanoramicTriggerLocationsSSDExecution4FinishEnd(ManagePanoramicTriggerLocationsService ManagePanoramicTriggerLocationsSSDExecution4)
+		MessageEnd::ManagePanoramicTriggerLocationsSSDCallMessage7ReturnReceivingEnd(LaboratoryAdministrator ManagePanoramicTriggerLocationsSSDCallMessage7Return)
+
+	}
+
+	Interaction ReviewPanoramicTriggerLocationsSSD {
+
+		[Participants: WebsiteMaintainer ReviewPanoramicTriggerLocationsService]
+
+		CallMessage::ReviewPanoramicTriggerLocationsSSDCallMessage1(approvePanTriggerLocations ReviewPanoramicTriggerLocationsSSDCallMessage1SendingEnd -> ReviewPanoramicTriggerLocationsSSDExecution1StartEnd)
+		ReturnMessage::ReviewPanoramicTriggerLocationsSSDCallMessage1Return(ReviewPanoramicTriggerLocationsSSDExecution1FinishEnd -> ReviewPanoramicTriggerLocationsSSDCallMessage1ReturnReceivingEnd ReviewPanoramicTriggerLocationsSSDCallMessage1)
+		CallMessage::ReviewPanoramicTriggerLocationsSSDCallMessage3(refusePanTriggerLocations ReviewPanoramicTriggerLocationsSSDCallMessage3SendingEnd -> ReviewPanoramicTriggerLocationsSSDExecution2StartEnd)
+		ReturnMessage::ReviewPanoramicTriggerLocationsSSDCallMessage3Return(ReviewPanoramicTriggerLocationsSSDExecution2FinishEnd -> ReviewPanoramicTriggerLocationsSSDCallMessage3ReturnReceivingEnd ReviewPanoramicTriggerLocationsSSDCallMessage3)
+
+		Execution::ReviewPanoramicTriggerLocationsSSDExecution1(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution1StartEnd ReviewPanoramicTriggerLocationsSSDExecution1FinishEnd)
+		Execution::ReviewPanoramicTriggerLocationsSSDExecution2(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution2StartEnd ReviewPanoramicTriggerLocationsSSDExecution2FinishEnd)
+
+		MessageEnd::ReviewPanoramicTriggerLocationsSSDCallMessage1SendingEnd(WebsiteMaintainer ReviewPanoramicTriggerLocationsSSDCallMessage1)
+		ExecutionEnd::ReviewPanoramicTriggerLocationsSSDExecution1StartEnd(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution1)
+		ExecutionEnd::ReviewPanoramicTriggerLocationsSSDExecution1FinishEnd(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution1)
+		MessageEnd::ReviewPanoramicTriggerLocationsSSDCallMessage1ReturnReceivingEnd(WebsiteMaintainer ReviewPanoramicTriggerLocationsSSDCallMessage1Return)
+		MessageEnd::ReviewPanoramicTriggerLocationsSSDCallMessage3SendingEnd(WebsiteMaintainer ReviewPanoramicTriggerLocationsSSDCallMessage3)
+		ExecutionEnd::ReviewPanoramicTriggerLocationsSSDExecution2StartEnd(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution2)
+		ExecutionEnd::ReviewPanoramicTriggerLocationsSSDExecution2FinishEnd(ReviewPanoramicTriggerLocationsService ReviewPanoramicTriggerLocationsSSDExecution2)
+		MessageEnd::ReviewPanoramicTriggerLocationsSSDCallMessage3ReturnReceivingEnd(WebsiteMaintainer ReviewPanoramicTriggerLocationsSSDCallMessage3Return)
+
+	}
+
+	Interaction SelectPanoramicTriggerLocationsAndViewSSD {
+
+		[Participants: User SelectPanoramicTriggerLocationsAndViewService]
+
+		CallMessage::SelectPanoramicTriggerLocationsAndViewSSDCallMessage1(selectPanTriggerLocation SelectPanoramicTriggerLocationsAndViewSSDCallMessage1SendingEnd -> SelectPanoramicTriggerLocationsAndViewSSDExecution1StartEnd)
+		ReturnMessage::SelectPanoramicTriggerLocationsAndViewSSDCallMessage1Return(SelectPanoramicTriggerLocationsAndViewSSDExecution1FinishEnd -> SelectPanoramicTriggerLocationsAndViewSSDCallMessage1ReturnReceivingEnd SelectPanoramicTriggerLocationsAndViewSSDCallMessage1)
+
+		Execution::SelectPanoramicTriggerLocationsAndViewSSDExecution1(SelectPanoramicTriggerLocationsAndViewService SelectPanoramicTriggerLocationsAndViewSSDExecution1StartEnd SelectPanoramicTriggerLocationsAndViewSSDExecution1FinishEnd)
+
+		MessageEnd::SelectPanoramicTriggerLocationsAndViewSSDCallMessage1SendingEnd(User SelectPanoramicTriggerLocationsAndViewSSDCallMessage1)
+		ExecutionEnd::SelectPanoramicTriggerLocationsAndViewSSDExecution1StartEnd(SelectPanoramicTriggerLocationsAndViewService SelectPanoramicTriggerLocationsAndViewSSDExecution1)
+		ExecutionEnd::SelectPanoramicTriggerLocationsAndViewSSDExecution1FinishEnd(SelectPanoramicTriggerLocationsAndViewService SelectPanoramicTriggerLocationsAndViewSSDExecution1)
+		MessageEnd::SelectPanoramicTriggerLocationsAndViewSSDCallMessage1ReturnReceivingEnd(User SelectPanoramicTriggerLocationsAndViewSSDCallMessage1Return)
+
+	}
+
+	Interaction OpenWebsiteViewSSD {
+
+		[Participants: User OpenWebsiteViewService]
+
+		CallMessage::OpenWebsiteViewSSDCallMessage1(openWebsite OpenWebsiteViewSSDCallMessage1SendingEnd -> OpenWebsiteViewSSDExecution1StartEnd)
+		ReturnMessage::OpenWebsiteViewSSDCallMessage1Return(OpenWebsiteViewSSDExecution1FinishEnd -> OpenWebsiteViewSSDCallMessage1ReturnReceivingEnd OpenWebsiteViewSSDCallMessage1)
+
+		Execution::OpenWebsiteViewSSDExecution1(OpenWebsiteViewService OpenWebsiteViewSSDExecution1StartEnd OpenWebsiteViewSSDExecution1FinishEnd)
+
+		MessageEnd::OpenWebsiteViewSSDCallMessage1SendingEnd(User OpenWebsiteViewSSDCallMessage1)
+		ExecutionEnd::OpenWebsiteViewSSDExecution1StartEnd(OpenWebsiteViewService OpenWebsiteViewSSDExecution1)
+		ExecutionEnd::OpenWebsiteViewSSDExecution1FinishEnd(OpenWebsiteViewService OpenWebsiteViewSSDExecution1)
+		MessageEnd::OpenWebsiteViewSSDCallMessage1ReturnReceivingEnd(User OpenWebsiteViewSSDCallMessage1Return)
+
+	}
+
+	Service AIPanoramicCampusSystem {
+
+	}
+
+	Service ThirdPartyServices {
+
+	}
+
+	Service PublishPanoramicImageCollectionRequestsService {
+
+		[Operation]
+		createNewRequest(id)
+
+	}
+
+	Service ManagePanoramicImageCollectorsCRUDService {
+
+		[Operation]
+		createPanoramicImageCollector(id, passward)
+		queryPanoramicImageCollector(id)
+		modifyPanoramicImageCollector(id, passward)
+		deletePanoramicImageCollector(id)
+
+	}
+
+	Service ManageLaboratoryAdministratorsCRUDService {
+
+		[Operation]
+		createLaboratoryAdministrator(id, passward)
+		queryLaboratoryAdministrator(id)
+		modifyLaboratoryAdministrator(id, passward)
+		deleteLaboratoryAdministrator(id)
+
+	}
+
+	Service ManageAIModelAdministratorsCRUDService {
+
+		[Operation]
+		createAIModelAdministrator(id, passward)
+		queryAIModelAdministrator(id)
+		modifyAIModelAdministrator(id, passward)
+		deleteAIModelAdministrator(id)
+
+	}
+
+	Service ManageWebsiteMaintainersCRUDService {
+
+		[Operation]
+		createWebsiteMaintainer(id, passward)
+		queryWebsiteMaintainer(id)
+		modifyWebsiteMaintainer(id, passward)
+		deleteWebsiteMaintainer(id)
+
+	}
+
+	Service ManagePanoramicTriggerLocationsCRUDService {
+
+		[Operation]
+		createPanoramicTriggerLocation(id)
+		queryPanoramicTriggerLocation(id)
+		modifyPanoramicTriggerLocation(id, piid, iid)
+		deletePanoramicTriggerLocation(id)
+
+	}
+
+	Service ManagePanoramicImagesCRUDService {
+
+		[Operation]
+		createPanoramicImage(id, filepath)
+		queryPanoramicImage(id)
+		modifyPanoramicImage(id, filepath)
+		deletePanoramicImage(id)
+
+	}
+
+	Service ManageLaboratoryIntroductionsCRUDService {
+
+		[Operation]
+		createLaboratoryIntroduction(id, introductionString)
+		queryLaboratoryIntroduction(id)
+		modifyLaboratoryIntroduction(id, introductionString)
+		deleteLaboratoryIntroduction(id)
+
+	}
+
+	Service ManageRAGDatabasesCRUDService {
+
+		[Operation]
+		createRAGDatabase(id, filepath)
+		queryRAGDatabase(id)
+		modifyRAGDatabase(id, filepath)
+		deleteRAGDatabase(id)
+
+	}
+
+	Service ManageDeployedLLMsCRUDService {
+
+		[Operation]
+		deployLLM()
+		deleteDeployedLLM()
+
+	}
+
+	Service ManageTTSModelsCRUDService {
+
+		[Operation]
+		deployTTSModel()
+		deleteTTSModel()
+
+	}
+
+	Service ManageSTTModelsCRUDService {
+
+		[Operation]
+		deploySTTModel()
+		deleteSTTModel()
+
+	}
+
+	Service AcceptPanoramicImageCollectionRequestsService {
+
+		[Operation]
+		getPanImageColRequest(id)
+
+	}
+
+	Service UploadPanoramicImagesService {
+
+		[Operation]
+		uploadPanImage(imageId, requestId, imagePath)
+
+	}
+
+	Service ManagePanoramicTriggerLocationsService {
+
+		[Operation]
+		createPanTriggerLocation(id)
+		setLocationImage(locationId, requestId)
+		setIntorduction(locationId, introduchtionId, introduction)
+		pubilshReview(locationId)
+
+	}
+
+	Service ReviewPanoramicTriggerLocationsService {
+
+		[Operation]
+		approvePanTriggerLocations(id)
+		refusePanTriggerLocations(id)
+
+	}
+
+	Service SelectPanoramicTriggerLocationsAndViewService {
+
+		[Operation]
+		selectPanTriggerLocation(id)
+
+	}
+
+	Service OpenWebsiteViewService {
+
+		[Operation]
+		openWebsite()
+
+	}
+
+//JK
+	Contract  PublishPanoramicImageCollectionRequestsService::createNewRequest(id : Integer) : Boolean {
+
+		definition:
+			picrr:PanoramicImageCollectionRequest = PanoramicImageCollectionRequest.allInstance()->any(p:PanoramicImageCollectionRequest | p.Id = id)
+
+		precondition:
+			picrr.oclIsUndefined() = true
+
+		postcondition:
+			let picr:PanoramicImageCollectionRequest in
+			picr.oclIsNew() and
+			picr.Id = id and
+			picr.RequestStatus = PanImageColRequestStatus::CREATED and
+			PanoramicImageCollectionRequest.allInstance()->includes(picr) and
+			result = true
+
+	}
+
+	Contract  AcceptPanoramicImageCollectionRequestsService::getPanImageColRequest(id : Integer) : Boolean {
+
+		definition:
+			picrr:PanoramicImageCollectionRequest = PanoramicImageCollectionRequest.allInstance()->any(p:PanoramicImageCollectionRequest | p.Id = id)
+
+		precondition:
+			picrr.oclIsUndefined() = false
+
+		postcondition:
+			picrr.RequestStatus = PanImageColRequestStatus::GOT and
+			result = true
+
+	}
+
+	Contract  UploadPanoramicImagesService::uploadPanImage(imageId : Integer, requestId : Integer, imagePath : String) : Boolean {
+
+		definition:
+			picrr:PanoramicImageCollectionRequest = PanoramicImageCollectionRequest.allInstance()->any(p:PanoramicImageCollectionRequest | p.Id = requestId),
+			imgg:PanoramicImage = PanoramicImage.allInstance()->any(i:PanoramicImage | i.Id = imageId)
+
+		precondition:
+			picrr.oclIsUndefined() = false and
+			imgg.oclIsUndefined() = true
+
+		postcondition:
+			let img:PanoramicImage in
+			img.oclIsNew() and
+			img.Id = imageId and
+			img.FilePath = imagePath and
+			picrr.RequestStatus = PanImageColRequestStatus::DONE and
+			picrr.ImageId = imageId and
+			PanoramicImage.allInstance()->includes(img) and
+			result = true
+
+	}
+
+// JK
+	Contract  ManagePanoramicTriggerLocationsService::createPanTriggerLocation(id : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptll.oclIsUndefined() = true
+
+		postcondition:
+			let ptl:PanoramicTriggerLocation in
+			ptl.oclIsNew() and
+			ptl.Id = id and
+			ptl.HaveIntroduction = false and
+			ptl.PTLStatus = PanoramicTriggerLocationStatus::EDITTING and
+			PanoramicTriggerLocation.allInstance()->includes(ptl) and
+			result = true
+
+	}
+
+	Contract  ManagePanoramicTriggerLocationsService::setLocationImage(locationId : Integer, requestId : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = locationId),
+			picrr:PanoramicImageCollectionRequest = PanoramicImageCollectionRequest.allInstance()->any(p:PanoramicImageCollectionRequest | p.Id = requestId)
+
+		precondition:
+			ptll.oclIsUndefined() = false and
+			picrr.oclIsUndefined() = false and
+			picrr.RequestStatus = PanImageColRequestStatus::DONE
+
+		postcondition:
+			ptll.PImageId = picrr.ImageId and
+			result = true
+
+	}
+
+	Contract  ManagePanoramicTriggerLocationsService::setIntorduction(locationId : Integer, introduchtionId : Integer, introduction : String) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = locationId),
+			intrdd:Introduction = Introduction.allInstance()->any(i:Introduction | i.Id = introduchtionId)
+
+		precondition:
+			ptll.oclIsUndefined() = false and
+			intrdd.oclIsUndefined() = true
+
+		postcondition:
+			let intrd:Introduction in
+			intrd.oclIsNew() and
+			intrd.Id = introduchtionId and
+			intrd.IntroductionString = introduction and
+			ptll.IntroductionId = introduchtionId and
+			ptll.HaveIntroduction = true and
+			Introduction.allInstance()->includes(intrd) and
+			result = true
+
+	}
+
+	Contract  ManagePanoramicTriggerLocationsService::pubilshReview(locationId : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = locationId)
+
+		precondition:
+			ptll.oclIsUndefined() = false
+
+		postcondition:
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::REVIEW and
+			result = true
+
+	}
+
+//JK
+	Contract  ReviewPanoramicTriggerLocationsService::approvePanTriggerLocations(id : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptll.oclIsUndefined() = false and
+			ptll.HaveIntroduction = true and
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::REVIEW
+
+		postcondition:
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::SHOW and
+			result = true
+
+	}
+
+	Contract  ReviewPanoramicTriggerLocationsService::refusePanTriggerLocations(id : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptll.oclIsUndefined() = false and
+			ptll.HaveIntroduction = true and
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::REVIEW
+
+		postcondition:
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::DISQUALIFICATION and
+			result = true
+
+	}
+
+//JK
+	Contract  SelectPanoramicTriggerLocationsAndViewService::selectPanTriggerLocation(id : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id),
+			singleManager:SingletonManager = SingletonManager.allInstance()->any(s:SingletonManager | s.HadInited = true)
+
+		precondition:
+			singleManager.oclIsUndefined() = false and
+			singleManager.HadWebOpened = true and
+			ptll.oclIsUndefined() = false and
+			ptll.HaveIntroduction = true and
+			ptll.PTLStatus = PanoramicTriggerLocationStatus::SHOW
+
+		postcondition:
+			result = true
+
+	}
+
+	Contract  OpenWebsiteViewService::openWebsite() : Boolean {
+
+		definition:
+			singleManager:SingletonManager = SingletonManager.allInstance()->any(s:SingletonManager | s.HadInited = true)
+
+		precondition:
+			singleManager.oclIsUndefined() = true
+
+		postcondition:
+			let sm:SingletonManager in
+			sm.oclIsNew() and
+			sm.HadInited = true and
+			sm.HadWebOpened = true and
+			SingletonManager.allInstance()->includes(sm) and
+			result = true
+	}
+
+//entity create operation 
+	Contract  ManagePanoramicImageCollectorsCRUDService::createPanoramicImageCollector(id : Integer, passward : String) : Boolean {
+
+		definition:
+			picc:PanoramicImageCollector = PanoramicImageCollector.allInstance()->any(p:PanoramicImageCollector | p.Id = id)
+
+		precondition:
+			picc.oclIsUndefined() = true
+
+		postcondition:
+			let pic:PanoramicImageCollector in
+			pic.oclIsNew() and
+			pic.Id = id and
+			pic.Passward = passward and
+			PanoramicImageCollector.allInstance()->includes(pic) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManagePanoramicImageCollectorsCRUDService::queryPanoramicImageCollector(id : Integer) : PanoramicImageCollector {
+
+		definition:
+			pic:PanoramicImageCollector = PanoramicImageCollector.allInstance()->any(p:PanoramicImageCollector | p.Id = id)
+
+		precondition:
+			pic.oclIsUndefined() = false
+		postcondition:
+			result = pic
+
+	}
+
+//entity modify operation 
+	Contract  ManagePanoramicImageCollectorsCRUDService::modifyPanoramicImageCollector(id : Integer, passward : String) : Boolean {
+
+		definition:
+			pic:PanoramicImageCollector = PanoramicImageCollector.allInstance()->any(p:PanoramicImageCollector | p.Id = id)
+
+		precondition:
+			pic.oclIsUndefined() = false
+
+		postcondition:
+			pic.Id = id and
+			pic.Passward = passward and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManagePanoramicImageCollectorsCRUDService::deletePanoramicImageCollector(id : Integer) : Boolean {
+
+		definition:
+			pic:PanoramicImageCollector = PanoramicImageCollector.allInstance()->any(p:PanoramicImageCollector | p.Id = id)
+
+		precondition:
+			pic.oclIsUndefined() = false and
+			PanoramicImageCollector.allInstance()->includes(pic)
+
+		postcondition:
+			PanoramicImageCollector.allInstance()->excludes(pic) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManageLaboratoryAdministratorsCRUDService::createLaboratoryAdministrator(id : Integer, passward : String) : Boolean {
+
+		definition:
+			laa:LaboratoryAdministrator = LaboratoryAdministrator.allInstance()->any(l:LaboratoryAdministrator | l.Id = id)
+
+		precondition:
+			laa.oclIsUndefined() = true
+
+		postcondition:
+			let la:LaboratoryAdministrator in
+			la.oclIsNew() and
+			la.Id = id and
+			la.Passward = passward and
+			LaboratoryAdministrator.allInstance()->includes(la) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManageLaboratoryAdministratorsCRUDService::queryLaboratoryAdministrator(id : Integer) : LaboratoryAdministrator {
+
+		definition:
+			la:LaboratoryAdministrator = LaboratoryAdministrator.allInstance()->any(l:LaboratoryAdministrator | l.Id = id)
+
+		precondition:
+			la.oclIsUndefined() = false
+		postcondition:
+			result = la
+
+	}
+
+//entity modify operation 
+	Contract  ManageLaboratoryAdministratorsCRUDService::modifyLaboratoryAdministrator(id : Integer, passward : String) : Boolean {
+
+		definition:
+			la:LaboratoryAdministrator = LaboratoryAdministrator.allInstance()->any(l:LaboratoryAdministrator | l.Id = id)
+
+		precondition:
+			la.oclIsUndefined() = false
+
+		postcondition:
+			la.Id = id and
+			la.Passward = passward and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManageLaboratoryAdministratorsCRUDService::deleteLaboratoryAdministrator(id : Integer) : Boolean {
+
+		definition:
+			la:LaboratoryAdministrator = LaboratoryAdministrator.allInstance()->any(l:LaboratoryAdministrator | l.Id = id)
+
+		precondition:
+			la.oclIsUndefined() = false and
+			LaboratoryAdministrator.allInstance()->includes(la)
+
+		postcondition:
+			LaboratoryAdministrator.allInstance()->excludes(la) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManageAIModelAdministratorsCRUDService::createAIModelAdministrator(id : Integer, passward : String) : Boolean {
+
+		definition:
+			aimaa:AIModelAdministrator = AIModelAdministrator.allInstance()->any(a:AIModelAdministrator | a.Id = id)
+
+		precondition:
+			aimaa.oclIsUndefined() = true
+
+		postcondition:
+			let aima:AIModelAdministrator in
+			aima.oclIsNew() and
+			aima.Id = id and
+			aima.Passward = passward and
+			AIModelAdministrator.allInstance()->includes(aima) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManageAIModelAdministratorsCRUDService::queryAIModelAdministrator(id : Integer) : AIModelAdministrator {
+
+		definition:
+			aima:AIModelAdministrator = AIModelAdministrator.allInstance()->any(a:AIModelAdministrator | a.Id = id)
+
+		precondition:
+			aima.oclIsUndefined() = false
+		postcondition:
+			result = aima
+
+	}
+
+//entity modify operation 
+	Contract  ManageAIModelAdministratorsCRUDService::modifyAIModelAdministrator(id : Integer, passward : String) : Boolean {
+
+		definition:
+			aima:AIModelAdministrator = AIModelAdministrator.allInstance()->any(a:AIModelAdministrator | a.Id = id)
+
+		precondition:
+			aima.oclIsUndefined() = false
+
+		postcondition:
+			aima.Id = id and
+			aima.Passward = passward and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManageAIModelAdministratorsCRUDService::deleteAIModelAdministrator(id : Integer) : Boolean {
+
+		definition:
+			aima:AIModelAdministrator = AIModelAdministrator.allInstance()->any(a:AIModelAdministrator | a.Id = id)
+
+		precondition:
+			aima.oclIsUndefined() = false and
+			AIModelAdministrator.allInstance()->includes(aima)
+
+		postcondition:
+			AIModelAdministrator.allInstance()->excludes(aima) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManageWebsiteMaintainersCRUDService::createWebsiteMaintainer(id : Integer, passward : String) : Boolean {
+
+		definition:
+			wmm:WebsiteMaintainer = WebsiteMaintainer.allInstance()->any(w:WebsiteMaintainer | w.Id = id)
+
+		precondition:
+			wmm.oclIsUndefined() = true
+
+		postcondition:
+			let wm:WebsiteMaintainer in
+			wm.oclIsNew() and
+			wm.Id = id and
+			wm.Passward = passward and
+			WebsiteMaintainer.allInstance()->includes(wm) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManageWebsiteMaintainersCRUDService::queryWebsiteMaintainer(id : Integer) : WebsiteMaintainer {
+
+		definition:
+			wm:WebsiteMaintainer = WebsiteMaintainer.allInstance()->any(w:WebsiteMaintainer | w.Id = id)
+
+		precondition:
+			wm.oclIsUndefined() = false
+		postcondition:
+			result = wm
+
+	}
+
+//entity modify operation 
+	Contract  ManageWebsiteMaintainersCRUDService::modifyWebsiteMaintainer(id : Integer, passward : String) : Boolean {
+
+		definition:
+			wm:WebsiteMaintainer = WebsiteMaintainer.allInstance()->any(w:WebsiteMaintainer | w.Id = id)
+
+		precondition:
+			wm.oclIsUndefined() = false
+
+		postcondition:
+			wm.Id = id and
+			wm.Passward = passward and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManageWebsiteMaintainersCRUDService::deleteWebsiteMaintainer(id : Integer) : Boolean {
+
+		definition:
+			wm:WebsiteMaintainer = WebsiteMaintainer.allInstance()->any(w:WebsiteMaintainer | w.Id = id)
+
+		precondition:
+			wm.oclIsUndefined() = false and
+			WebsiteMaintainer.allInstance()->includes(wm)
+
+		postcondition:
+			WebsiteMaintainer.allInstance()->excludes(wm) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManagePanoramicTriggerLocationsCRUDService::createPanoramicTriggerLocation(id : Integer) : Boolean {
+
+		definition:
+			ptll:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptll.oclIsUndefined() = true
+
+		postcondition:
+			let ptl:PanoramicTriggerLocation in
+			ptl.oclIsNew() and
+			ptl.Id = id and
+			ptl.HaveIntroduction = false and
+			ptl.PTLStatus = PanoramicTriggerLocationStatus::EDITTING and
+			PanoramicTriggerLocation.allInstance()->includes(ptl) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManagePanoramicTriggerLocationsCRUDService::queryPanoramicTriggerLocation(id : Integer) : PanoramicTriggerLocation {
+
+		definition:
+			ptl:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptl.oclIsUndefined() = false
+		postcondition:
+			result = ptl
+
+	}
+
+//entity modify operation 
+	Contract  ManagePanoramicTriggerLocationsCRUDService::modifyPanoramicTriggerLocation(id : Integer, piid : Integer, iid : Integer) : Boolean {
+
+		definition:
+			ptl:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptl.oclIsUndefined() = false
+
+		postcondition:
+			ptl.Id = id and
+			ptl.PImageId = piid and
+			ptl.IntroductionId = iid and
+			ptl.HaveIntroduction = true and
+			ptl.PTLStatus = PanoramicTriggerLocationStatus::REVIEW and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManagePanoramicTriggerLocationsCRUDService::deletePanoramicTriggerLocation(id : Integer) : Boolean {
+
+		definition:
+			ptl:PanoramicTriggerLocation = PanoramicTriggerLocation.allInstance()->any(p:PanoramicTriggerLocation | p.Id = id)
+
+		precondition:
+			ptl.oclIsUndefined() = false and
+			PanoramicTriggerLocation.allInstance()->includes(ptl)
+
+		postcondition:
+			PanoramicTriggerLocation.allInstance()->excludes(ptl) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManagePanoramicImagesCRUDService::createPanoramicImage(id : Integer, filepath : String) : Boolean {
+
+		definition:
+			pii:PanoramicImage = PanoramicImage.allInstance()->any(p:PanoramicImage | p.Id = id)
+
+		precondition:
+			pii.oclIsUndefined() = true
+
+		postcondition:
+			let pi:PanoramicImage in
+			pi.oclIsNew() and
+			pi.Id = id and
+			pi.FilePath = filepath and
+			PanoramicImage.allInstance()->includes(pi) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManagePanoramicImagesCRUDService::queryPanoramicImage(id : Integer) : PanoramicImage {
+
+		definition:
+			pi:PanoramicImage = PanoramicImage.allInstance()->any(p:PanoramicImage | p.Id = id)
+
+		precondition:
+			pi.oclIsUndefined() = false
+		postcondition:
+			result = pi
+
+	}
+
+//entity modify operation 
+	Contract  ManagePanoramicImagesCRUDService::modifyPanoramicImage(id : Integer, filepath : String) : Boolean {
+
+		definition:
+			pi:PanoramicImage = PanoramicImage.allInstance()->any(p:PanoramicImage | p.Id = id)
+
+		precondition:
+			pi.oclIsUndefined() = false
+
+		postcondition:
+			pi.Id = id and
+			pi.FilePath = filepath and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManagePanoramicImagesCRUDService::deletePanoramicImage(id : Integer) : Boolean {
+
+		definition:
+			pi:PanoramicImage = PanoramicImage.allInstance()->any(p:PanoramicImage | p.Id = id)
+
+		precondition:
+			pi.oclIsUndefined() = false and
+			PanoramicImage.allInstance()->includes(pi)
+
+		postcondition:
+			PanoramicImage.allInstance()->excludes(pi) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManageLaboratoryIntroductionsCRUDService::createLaboratoryIntroduction(id : Integer, introductionString : String) : Boolean {
+
+		definition:
+			iii:Introduction = Introduction.allInstance()->any(i:Introduction | i.Id = id)
+
+		precondition:
+			iii.oclIsUndefined() = true
+
+		postcondition:
+			let ii:Introduction in
+			ii.oclIsNew() and
+			ii.Id = id and
+			ii.IntroductionString = introductionString and
+			Introduction.allInstance()->includes(ii) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManageLaboratoryIntroductionsCRUDService::queryLaboratoryIntroduction(id : Integer) : Introduction {
+
+		definition:
+			ii:Introduction = Introduction.allInstance()->any(i:Introduction | i.Id = id)
+
+		precondition:
+			ii.oclIsUndefined() = false
+		postcondition:
+			result = ii
+
+	}
+
+//entity modify operation 
+	Contract  ManageLaboratoryIntroductionsCRUDService::modifyLaboratoryIntroduction(id : Integer, introductionString : String) : Boolean {
+
+		definition:
+			ii:Introduction = Introduction.allInstance()->any(i:Introduction | i.Id = id)
+
+		precondition:
+			ii.oclIsUndefined() = false
+
+		postcondition:
+			ii.Id = id and
+			ii.IntroductionString = introductionString and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManageLaboratoryIntroductionsCRUDService::deleteLaboratoryIntroduction(id : Integer) : Boolean {
+
+		definition:
+			ii:Introduction = Introduction.allInstance()->any(i:Introduction | i.Id = id)
+
+		precondition:
+			ii.oclIsUndefined() = false and
+			Introduction.allInstance()->includes(ii)
+
+		postcondition:
+			Introduction.allInstance()->excludes(ii) and
+			result = true
+
+	}
+
+//entity create operation 
+	Contract  ManageRAGDatabasesCRUDService::createRAGDatabase(id : Integer, filepath : String) : Boolean {
+
+		definition:
+			ragff:RAGFile = RAGFile.allInstance()->any(r:RAGFile | r.Id = id)
+
+		precondition:
+			ragff.oclIsUndefined() = true
+
+		postcondition:
+			let ragf:RAGFile in
+			ragf.oclIsNew() and
+			ragf.Id = id and
+			ragf.FilePath = filepath and
+			RAGFile.allInstance()->includes(ragf) and
+			result = true
+
+	}
+
+//entity query operation 
+	Contract  ManageRAGDatabasesCRUDService::queryRAGDatabase(id : Integer) : RAGFile {
+
+		definition:
+			ragf:RAGFile = RAGFile.allInstance()->any(r:RAGFile | r.Id = id)
+
+		precondition:
+			ragf.oclIsUndefined() = false
+		postcondition:
+			result = ragf
+
+	}
+
+//entity modify operation 
+	Contract  ManageRAGDatabasesCRUDService::modifyRAGDatabase(id : Integer, filepath : String) : Boolean {
+
+		definition:
+			ragf:RAGFile = RAGFile.allInstance()->any(r:RAGFile | r.Id = id)
+
+		precondition:
+			ragf.oclIsUndefined() = false
+
+		postcondition:
+			ragf.Id = id and
+			ragf.FilePath = filepath and
+			result = true
+
+	}
+
+//entity delete operation 
+	Contract  ManageRAGDatabasesCRUDService::deleteRAGDatabase(id : Integer) : Boolean {
+
+		definition:
+			ragf:RAGFile = RAGFile.allInstance()->any(r:RAGFile | r.Id = id)
+
+		precondition:
+			ragf.oclIsUndefined() = false and
+			RAGFile.allInstance()->includes(ragf)
+
+		postcondition:
+			RAGFile.allInstance()->excludes(ragf) and
+			result = true
+
+	}
+
+//LLM deploy operation 
+	Contract  ManageDeployedLLMsCRUDService::deployLLM() : Boolean {
+
+		definition:
+			l:LLM = LLM.allInstance()->any(m:LLM | m.Have = false)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = true and
+			result = true
+
+	}
+
+//LLM delete operation 
+	Contract  ManageDeployedLLMsCRUDService::deleteDeployedLLM() : Boolean {
+
+		definition:
+			l:LLM = LLM.allInstance()->any(m:LLM | m.Have = true)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = false and
+			result = true
+
+	}
+
+//TTS deploy operation 
+	Contract  ManageTTSModelsCRUDService::deployTTSModel() : Boolean {
+
+		definition:
+			l:TTS = TTS.allInstance()->any(m:TTS | m.Have = false)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = true and
+			result = true
+
+	}
+
+//TTS delete operation 
+	Contract  ManageTTSModelsCRUDService::deleteTTSModel() : Boolean {
+
+		definition:
+			l:TTS = TTS.allInstance()->any(m:TTS | m.Have = true)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = false and
+			result = true
+
+	}
+
+//STT deploy operation 
+	Contract  ManageSTTModelsCRUDService::deploySTTModel() : Boolean {
+
+		definition:
+			l:STT = STT.allInstance()->any(m:STT | m.Have = false)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = true and
+			result = true
+
+	}
+
+//STT delete operation 
+	Contract  ManageSTTModelsCRUDService::deleteSTTModel() : Boolean {
+
+		definition:
+			l:STT = STT.allInstance()->any(m:STT | m.Have = true)
+
+		precondition:
+			l.oclIsUndefined() = false
+
+		postcondition:
+			l.Have = false and
+			result = true
+
+	}
+
+}
+
+DomainModel AIPanoramicCampus {
+
+	Entity Administrator {
+		Passward : String
+	}
+
+	@AutoCRUD Entity PanoramicImageCollector {
+		Id : Integer
+		Passward : String
+
+		[Refer]
+		PanoramicImageCollectortoPanoramicImageCollectionRequest : PanoramicImageCollectionRequest* Association
+	}
+
+	@AutoCRUD Entity LaboratoryAdministrator {
+		Id : Integer
+		Passward : String
+
+		[Refer]
+		LaboratoryAdministratortoPanoramicImageCollectionRequest : PanoramicImageCollectionRequest* Association
+		LaboratoryAdministratortoPanoramicTriggerLocation : PanoramicTriggerLocation* Association
+	}
+
+	@AutoCRUD Entity AIModelAdministrator {
+		Id : Integer
+		Passward : String
+
+		[Refer]
+		AIModelAdministratortoRAGFile : RAGFile* Association
+		AIModelAdministratortoLLM : LLM Association
+		AIModelAdministratortoSST : STT Association
+		AIModelAdministratortoTTS : TTS Association
+	}
+
+	@AutoCRUD Entity WebsiteMaintainer {
+		Id : Integer
+		Passward : String
+	}
+
+	Entity User {
+	}
+
+	@AutoCRUD Entity PanoramicImageCollectionRequest {
+		Id : Integer
+		RequestStatus : PanImageColRequestStatus[CREATED|GOT|DONE]
+		ImageId : Integer
+
+		[Refer]
+		PanoramicImageCollectionRequesttoPanoramicImage : PanoramicImage Association
+	}
+
+	@AutoCRUD Entity PanoramicImage {
+		Id : Integer
+		FilePath : String
+	}
+
+	@AutoCRUD Entity PanoramicTriggerLocation {
+		Id : Integer
+		PImageId : Integer
+		HaveIntroduction : Boolean
+		IntroductionId : Integer
+		PTLStatus : PanoramicTriggerLocationStatus[SHOW|REVIEW|DISQUALIFICATION|EDITTING]
+
+		[Refer]
+		PanoramicTriggerLocationtoPanoramicImage : PanoramicImage Association
+		PanoramicTriggerLocationtoIntroduction : Introduction* Association
+	}
+
+	@AutoCRUD Entity Introduction {
+		Id : Integer
+		IntroductionString : String
+		IntroductionWAVPath : String
+	}
+
+	@AutoCRUD Entity RAGFile {
+		Id : Integer
+		FilePath : String
+	}
+
+	@AutoCRUD Entity LLM {
+		Have : Boolean
+	}
+
+	@AutoCRUD Entity STT {
+		Have : Boolean
+	}
+
+	@AutoCRUD Entity TTS {
+		Have : Boolean
+	}
+
+	Entity SingletonManager {
+		HadInited : Boolean
+		HadWebOpened : Boolean
+		HadVROpened : Boolean
+	}
+
+}
+
