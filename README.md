@@ -45,3 +45,357 @@ Actor数量：6
 网站维护者进行审批
 ![用户访问](Image/9.png)
 用户访问
+# lab02
+软件需求与系统设计第二次课程作业
+## 架构设计自动生成
+学习RapidMS工具后，使用工具生成第一次作业建模项目的架构设计模型与微服务模型
+![生成用例图](Image/2_1.png)
+生成用例图
+![生成类图](Image/2_2.png)
+生成的类图
+![生成的微服务模型](Image/2_3.png)
+生成的微服务模型
+## 面向对象详细自动生成
+学习RM2DM工具后，使用工具生成第一次作业建模项目的详细设计模型
+![生成详细设计类图](Image/2_4.png)
+生成的详细设计类图
+1[最后的文件夹结构](Image/2_5.png)
+最后的文件夹结构
+## 使用AI生成设计模型
+如下是AI生成的类图：
+```
++-----------------------------------+
+|             Administrator         |
++-----------------------------------+
+| - Id : Integer                    |
+| - Passward : String               |
++-----------------------------------+
+| + createLaboratoryAdministrator() |
+| + queryLaboratoryAdministrator()  |
+| + modifyLaboratoryAdministrator() |
+| + deleteLaboratoryAdministrator() |
++-----------------------------------+
+
++-----------------------------------+
+|        PanoramicImageCollector    |
++-----------------------------------+
+| - Id : Integer                    |
+| - Passward : String               |
++-----------------------------------+
+| + createPanoramicImageCollector() |
+| + queryPanoramicImageCollector()  |
+| + modifyPanoramicImageCollector() |
+| + deletePanoramicImageCollector() |
++-----------------------------------+
+
++-----------------------------------+
+|       LaboratoryAdministrator     |
++-----------------------------------+
+| - Id : Integer                    |
+| - Passward : String               |
++-----------------------------------+
+| + createLaboratoryAdministrator() |
+| + queryLaboratoryAdministrator()  |
+| + modifyLaboratoryAdministrator() |
+| + deleteLaboratoryAdministrator() |
++-----------------------------------+
+
++-----------------------------------+
+|        AIModelAdministrator       |
++-----------------------------------+
+| - Id : Integer                    |
+| - Passward : String               |
++-----------------------------------+
+| + createAIModelAdministrator()    |
+| + queryAIModelAdministrator()     |
+| + modifyAIModelAdministrator()    |
+| + deleteAIModelAdministrator()    |
++-----------------------------------+
+
++-----------------------------------+
+|        WebsiteMaintainer          |
++-----------------------------------+
+| - Id : Integer                    |
+| - Passward : String               |
++-----------------------------------+
+| + createWebsiteMaintainer()       |
+| + queryWebsiteMaintainer()        |
+| + modifyWebsiteMaintainer()       |
+| + deleteWebsiteMaintainer()       |
++-----------------------------------+
+
++-----------------------------------+
+|                User               |
++-----------------------------------+
+| - Id : Integer                    |
++-----------------------------------+
+| + openWebsiteView()               |
+| + openVRView()                    |
+| + selectPanoramicTriggerLocationsAndView() |
+| + interactAI()                    |
++-----------------------------------+
+
++-----------------------------------+
+|  PanoramicImageCollectionRequest  |
++-----------------------------------+
+| - Id : Integer                    |
+| - RequestStatus : PanImageColRequestStatus |
+| - ImageId : Integer               |
++-----------------------------------+
+| + createNewRequest()              |
+| + getPanImageColRequest()         |
++-----------------------------------+
+
++-----------------------------------+
+|          PanoramicImage           |
++-----------------------------------+
+| - Id : Integer                    |
+| - FilePath : String               |
++-----------------------------------+
+| + uploadPanImage()                |
+| + queryPanoramicImage()           |
+| + modifyPanoramicImage()          |
+| + deletePanoramicImage()          |
++-----------------------------------+
+
++-----------------------------------+
+|      PanoramicTriggerLocation     |
++-----------------------------------+
+| - Id : Integer                    |
+| - PImageId : Integer              |
+| - HaveIntroduction : Boolean      |
+| - IntroductionId : Integer        |
+| - PTLStatus : PanoramicTriggerLocationStatus |
++-----------------------------------+
+| + createPanTriggerLocation()      |
+| + setLocationImage()              |
+| + setIntorduction()               |
+| + pubilshReview()                 |
++-----------------------------------+
+
++-----------------------------------+
+|           Introduction            |
++-----------------------------------+
+| - Id : Integer                    |
+| - IntroductionString : String     |
+| - IntroductionWAVPath : String    |
++-----------------------------------+
+| + createLaboratoryIntroduction()  |
+| + queryLaboratoryIntroduction()   |
+| + modifyLaboratoryIntroduction()  |
+| + deleteLaboratoryIntroduction()  |
++-----------------------------------+
+
++-----------------------------------+
+|             RAGFile               |
++-----------------------------------+
+| - Id : Integer                    |
+| - FilePath : String               |
++-----------------------------------+
+| + createRAGDatabase()             |
+| + queryRAGDatabase()              |
+| + modifyRAGDatabase()             |
+| + deleteRAGDatabase()             |
++-----------------------------------+
+
++-----------------------------------+
+|               LLM                 |
++-----------------------------------+
+| - Have : Boolean                  |
++-----------------------------------+
+| + deployLLM()                     |
+| + deleteDeployedLLM()             |
++-----------------------------------+
+
++-----------------------------------+
+|               TTS                 |
++-----------------------------------+
+| - Have : Boolean                  |
++-----------------------------------+
+| + deployTTSModel()                |
+| + deleteTTSModel()                |
++-----------------------------------+
+
++-----------------------------------+
+|               STT                 |
++-----------------------------------+
+| - Have : Boolean                  |
++-----------------------------------+
+| + deploySTTModel()                |
+| + deleteSTTModel()                |
++-----------------------------------+
+
++-----------------------------------+
+|         SingletonManager          |
++-----------------------------------+
+| - HadInited : Boolean             |
+| - HadWebOpened : Boolean          |
+| - HadVROpened : Boolean           |
++-----------------------------------+
+| + openWebsite()                   |
++-----------------------------------+
+```
+如下是AI生成的服务：
+```
++-----------------------------------+
+| PublishPanoramicImageCollectionRequestsService |
++-----------------------------------+
+| + createNewRequest(id : Integer) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| AcceptPanoramicImageCollectionRequestsService |
++-----------------------------------+
+| + getPanImageColRequest(id : Integer) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| UploadPanoramicImagesService      |
++-----------------------------------+
+| + uploadPanImage(imageId : Integer, requestId : Integer, imagePath : String) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| ManagePanoramicTriggerLocationsService |
++-----------------------------------+
+| + createPanTriggerLocation(id : Integer) : Boolean |
+| + setLocationImage(locationId : Integer, requestId : Integer) : Boolean |
+| + setIntorduction(locationId : Integer, introduchtionId : Integer, introduction : String) : Boolean |
+| + pubilshReview(locationId : Integer) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| ReviewPanoramicTriggerLocationsService |
++-----------------------------------+
+| + approvePanTriggerLocations(id : Integer) : Boolean |
+| + refusePanTriggerLocations(id : Integer) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| SelectPanoramicTriggerLocationsAndViewService |
++-----------------------------------+
+| + selectPanTriggerLocation(id : Integer) : Boolean |
++-----------------------------------+
+
++-----------------------------------+
+| OpenWebsiteViewService            |
++-----------------------------------+
+| + openWebsite() : Boolean         |
++-----------------------------------+
+```
+如下是AI生成的数据模型设计：
+```
++-----------------------------------+
+|             Administrator         |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Passward : String               |
++-----------------------------------+
+
++-----------------------------------+
+|        PanoramicImageCollector    |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Passward : String               |
++-----------------------------------+
+
++-----------------------------------+
+|       LaboratoryAdministrator     |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Passward : String               |
++-----------------------------------+
+
++-----------------------------------+
+|        AIModelAdministrator       |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Passward : String               |
++-----------------------------------+
+
++-----------------------------------+
+|        WebsiteMaintainer          |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Passward : String               |
++-----------------------------------+
+
++-----------------------------------+
+|                User               |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
++-----------------------------------+
+
++-----------------------------------+
+|  PanoramicImageCollectionRequest  |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - RequestStatus : PanImageColRequestStatus |
+| - ImageId : Integer (Foreign Key) |
++-----------------------------------+
+
++-----------------------------------+
+|          PanoramicImage           |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - FilePath : String               |
++-----------------------------------+
+
++-----------------------------------+
+|      PanoramicTriggerLocation     |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - PImageId : Integer (Foreign Key)|
+| - HaveIntroduction : Boolean      |
+| - IntroductionId : Integer (Foreign Key) |
+| - PTLStatus : PanoramicTriggerLocationStatus |
++-----------------------------------+
+
++-----------------------------------+
+|           Introduction            |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - IntroductionString : String     |
+| - IntroductionWAVPath : String    |
++-----------------------------------+
+
++-----------------------------------+
+|             RAGFile               |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - FilePath : String               |
++-----------------------------------+
+
++-----------------------------------+
+|               LLM                 |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Have : Boolean                  |
++-----------------------------------+
+
++-----------------------------------+
+|               TTS                 |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Have : Boolean                  |
++-----------------------------------+
+
++-----------------------------------+
+|               STT                 |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - Have : Boolean                  |
++-----------------------------------+
+
++-----------------------------------+
+|         SingletonManager          |
++-----------------------------------+
+| - Id : Integer (Primary Key)      |
+| - HadInited : Boolean             |
+| - HadWebOpened : Boolean          |
+| - HadVROpened : Boolean           |
++-----------------------------------+
+```
+## 使用AI生成微服务模型
+![AI的微服务拆分](Image/2_6.png)
+AI生成的微服务模型拆分
