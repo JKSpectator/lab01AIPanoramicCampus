@@ -1,0 +1,288 @@
+MicroServiceModel AIPanoramicCampus {
+	MicroService LaboratoryAdministratorService {
+		ProvidedInterface managePanoramicTriggerLocations{
+			[Operation]
+			createPanoramicTriggerLocations
+			queryPanoramicTriggerLocations
+			updatePanoramicTriggerLocations
+			modifyPanoramicTriggerLocations
+		}
+		ProvidedInterface managePanoramicImages{
+			[Operation]
+			createPanoramicImages
+			queryPanoramicImages
+			updatePanoramicImages
+			modifyPanoramicImages
+		}
+		ProvidedInterface publishPanoramicImageCollectionRequests{
+			[Operation]
+			publishPanoramicImageCollectionRequests
+		}
+		ProvidedInterface manageLaboratoryIntroductions{
+			[Operation]
+			createLaboratoryIntroductions
+			queryLaboratoryIntroductions
+			updateLaboratoryIntroductions
+			modifyLaboratoryIntroductions
+		}
+		ProvidedInterface managePanoramicImageCollectionRequest{
+			[Operation]
+			createPanoramicImageCollectionRequest
+			queryPanoramicImageCollectionRequest
+			updatePanoramicImageCollectionRequest
+			modifyPanoramicImageCollectionRequest
+		}
+		RequiredInterface managePanoramicImage
+		RequiredInterface managePanoramicTriggerLocation
+		DomainModel LaboratoryAdministratorService {
+			@AutoCRUD Entity PanoramicImageCollectionRequest {
+				Id : Integer
+				RequestStatus : Integer
+				ImageId : Integer
+				[Refer]
+			}
+			@AutoCRUD Entity WebsiteMaintainer {
+				Id : Integer
+				Passward : String
+				[Refer]
+			}
+			@AutoCRUD Entity LaboratoryAdministrator {
+				Id : Integer
+				Passward : String
+				[Refer]
+				LaboratoryAdministratortoPanoramicImageCollectionRequest : PanoramicImageCollectionRequest  Association
+			}
+		}
+	}
+	MicroService UserService {
+		ProvidedInterface openWebsiteView{
+			[Operation]
+			openWebsiteView
+		}
+		ProvidedInterface interactAI{
+			[Operation]
+			interactAI
+		}
+		ProvidedInterface openVRView{
+			[Operation]
+			openVRView
+		}
+		ProvidedInterface selectPanoramicTriggerLocationsAndView{
+			[Operation]
+			selectPanoramicTriggerLocationsAndView
+		}
+		ProvidedInterface manageTTS{
+			[Operation]
+			createTTS
+			queryTTS
+			updateTTS
+			modifyTTS
+		}
+		RequiredInterface managePanoramicImageCollectionRequest
+		DomainModel UserService {
+			@AutoCRUD Entity TTS {
+				Have : Boolean
+				[Refer]
+			}
+			@AutoCRUD Entity PanoramicImageCollector {
+				Id : Integer
+				Passward : String
+				[Refer]
+			}
+		}
+	}
+	MicroService AIModelAdministratorService {
+		ProvidedInterface manageTTSModels{
+			[Operation]
+			createTTSModels
+			queryTTSModels
+			updateTTSModels
+			modifyTTSModels
+		}
+		ProvidedInterface manageSTTModels{
+			[Operation]
+			createSTTModels
+			querySTTModels
+			updateSTTModels
+			modifySTTModels
+		}
+		ProvidedInterface manageDeployedLLMs{
+			[Operation]
+			createDeployedLLMs
+			queryDeployedLLMs
+			updateDeployedLLMs
+			modifyDeployedLLMs
+		}
+		ProvidedInterface manageRAGDatabases{
+			[Operation]
+			createRAGDatabases
+			queryRAGDatabases
+			updateRAGDatabases
+			modifyRAGDatabases
+		}
+		ProvidedInterface manageLLM{
+			[Operation]
+			createLLM
+			queryLLM
+			updateLLM
+			modifyLLM
+		}
+		ProvidedInterface manageIntroduction{
+			[Operation]
+			createIntroduction
+			queryIntroduction
+			updateIntroduction
+			modifyIntroduction
+		}
+		DomainModel AIModelAdministratorService {
+			@AutoCRUD Entity LLM {
+				Have : Boolean
+				[Refer]
+			}
+			@AutoCRUD Entity Introduction {
+				Id : Integer
+				IntroductionString : String
+				IntroductionWAVPath : String
+				[Refer]
+			}
+		}
+	}
+	MicroService WebsiteMaintainerService {
+		ProvidedInterface reviewPanoramicTriggerLocations{
+			[Operation]
+			reviewPanoramicTriggerLocations
+		}
+		ProvidedInterface manageSTT{
+			[Operation]
+			createSTT
+			querySTT
+			updateSTT
+			modifySTT
+		}
+		ProvidedInterface managePanoramicTriggerLocation{
+			[Operation]
+			createPanoramicTriggerLocation
+			queryPanoramicTriggerLocation
+			updatePanoramicTriggerLocation
+			modifyPanoramicTriggerLocation
+		}
+		RequiredInterface managePanoramicImage
+		RequiredInterface manageIntroduction
+		DomainModel WebsiteMaintainerService {
+			@AutoCRUD Entity STT {
+				Have : Boolean
+				[Refer]
+			}
+			@AutoCRUD Entity PanoramicTriggerLocation {
+				Id : Integer
+				PImageId : Integer
+				HaveIntroduction : Boolean
+				IntroductionId : Integer
+				PTLStatus : Integer
+				[Refer]
+			}
+		}
+	}
+	MicroService AdministratorService {
+		ProvidedInterface manageAIModelAdministrators{
+			[Operation]
+			createAIModelAdministrators
+			queryAIModelAdministrators
+			updateAIModelAdministrators
+			modifyAIModelAdministrators
+		}
+		ProvidedInterface manageWebsiteMaintainers{
+			[Operation]
+			createWebsiteMaintainers
+			queryWebsiteMaintainers
+			updateWebsiteMaintainers
+			modifyWebsiteMaintainers
+		}
+		ProvidedInterface interactAIwithSpeech{
+			[Operation]
+			interactAIwithSpeech
+		}
+		ProvidedInterface getResponse{
+			[Operation]
+			getResponse
+		}
+		ProvidedInterface sendMessage{
+			[Operation]
+			sendMessage
+		}
+		ProvidedInterface managePanoramicImageCollectors{
+			[Operation]
+			createPanoramicImageCollectors
+			queryPanoramicImageCollectors
+			updatePanoramicImageCollectors
+			modifyPanoramicImageCollectors
+		}
+		ProvidedInterface manageLaboratoryAdministrators{
+			[Operation]
+			createLaboratoryAdministrators
+			queryLaboratoryAdministrators
+			updateLaboratoryAdministrators
+			modifyLaboratoryAdministrators
+		}
+		RequiredInterface manageRAGFile
+		RequiredInterface manageLLM
+		RequiredInterface manageSTT
+		RequiredInterface manageTTS
+		DomainModel AdministratorService {
+			 Entity User {
+				[Refer]
+			}
+			 Entity SingletonManager {
+				HadInited : Boolean
+				HadWebOpened : Boolean
+				HadVROpened : Boolean
+				[Refer]
+			}
+			@AutoCRUD Entity AIModelAdministrator {
+				Id : Integer
+				Passward : String
+				[Refer]
+			}
+		}
+	}
+	MicroService PanoramicImageCollectorService {
+		ProvidedInterface acceptPanoramicImageCollectionRequests{
+			[Operation]
+			acceptPanoramicImageCollectionRequests
+		}
+		ProvidedInterface uploadPanoramicImages{
+			[Operation]
+			uploadPanoramicImages
+		}
+		ProvidedInterface manageRAGFile{
+			[Operation]
+			createRAGFile
+			queryRAGFile
+			updateRAGFile
+			modifyRAGFile
+		}
+		ProvidedInterface managePanoramicImage{
+			[Operation]
+			createPanoramicImage
+			queryPanoramicImage
+			updatePanoramicImage
+			modifyPanoramicImage
+		}
+		DomainModel PanoramicImageCollectorService {
+			@AutoCRUD Entity RAGFile {
+				Id : Integer
+				FilePath : String
+				[Refer]
+			}
+			 Entity Administrator {
+				Passward : String
+				[Refer]
+			}
+			@AutoCRUD Entity PanoramicImage {
+				Id : Integer
+				FilePath : String
+				[Refer]
+			}
+		}
+	}
+}
